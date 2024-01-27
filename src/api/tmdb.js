@@ -13,8 +13,9 @@ const config = {
 };
 
 const tmdb = axios.create(config);
+
 export async function getTrending(timeWindow = 'day', language = 'en-US') {
-  const url = '/trending/movie/${timeWindow}';
+  const url = `/trending/movie/${timeWindow}`;
   const params = { language };
   const response = await tmdb.get(url, { params });
   return response.data.results;
