@@ -19,8 +19,6 @@ const Cast = () => {
       .catch(error => setState(states.LOADED));
   }, [movieId]);
 
-  console.log(cast);
-
   switch (state) {
     case states.LOADING:
       return <CenteredSpinner />;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { func } from 'prop-types';
 import {
   INIT_FETCH_CONFIG,
   DEFAULT_QUERY_PARAMS_FOR_SEARCH,
@@ -68,6 +69,18 @@ export async function getCast(movieId, language = 'en-US') {
   try {
     const response = await tmdb(url, { params });
     return response.data.cast;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function getReviews(movieId, page = 1, language = 'en-US') {
+  const url = `/movie/${movieId}/reviews`;
+  const params = { language, page };
+  try {
+    const response = await tmdb(url, { params });
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;
