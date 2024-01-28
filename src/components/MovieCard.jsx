@@ -21,7 +21,7 @@ const MovieCard = ({ poster_path, title, vote_avarage, overview, genres }) => {
         </Col>
         <Col md={8}>
           <Card.Body>
-            <Card.Title className="fs-2">{title}</Card.Title>
+            <Card.Title className="fs-2 mb-3">{title}</Card.Title>
             <Card.Text>User score: {userScore + '%'}</Card.Text>
             <Card.Text className="fs-5 fw-semibold">Overview</Card.Text>
             <Card.Text>{overview}</Card.Text>

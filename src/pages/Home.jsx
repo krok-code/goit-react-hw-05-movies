@@ -15,7 +15,6 @@ const Home = () => {
         setLoading(false);
       })
       .catch(error => {
-        console.error(`Oh no, error: ${error}`);
         setError(error);
         setLoading(false);
       });

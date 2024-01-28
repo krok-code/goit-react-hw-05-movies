@@ -1,4 +1,4 @@
-import { generateImageUrl, getMovieDetailsById } from 'api/tmdb';
+import { getMovieDetailsById } from 'api/tmdb';
 import BackLink from 'components/BackLink';
 import CenteredSpinner from 'components/CenteredSpinner';
 import MovieCard from 'components/MovieCard';
@@ -18,12 +18,9 @@ const MovieDetails = () => {
         setState(states.LOADING);
       })
       .catch(error => {
-        console.error(`Error loading movie details: ${error.message}`);
         setState(states.ERROR);
       });
   }, [movieId]);
-
-  console.log('movieDetails', movieDetails);
 
   switch (state) {
     case states.LOADING:

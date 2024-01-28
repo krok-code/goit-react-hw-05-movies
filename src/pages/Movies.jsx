@@ -40,7 +40,6 @@ const Movies = () => {
         setMovies(data);
       })
       .catch(error => {
-        console.error(`Oh no, error: ${error}`);
         setError(error);
       })
       .finally(() => setLoading(false));
