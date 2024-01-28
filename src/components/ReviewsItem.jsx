@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-rypes';
+import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { dateFormatOptions } from 'utils/constant';
 
