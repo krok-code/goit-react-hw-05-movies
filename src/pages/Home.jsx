@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getTrending } from 'api/tmdb';
-import TrendingList from 'components/TrendingList';
+import MoviesList from 'components/MoviesList';
 import CenteredSpinner from 'components/CenteredSpinner';
 
 const Home = () => {
@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <>
       <h1 className="nb-3">Trending today</h1>
-      <TrendingList movies={movies} />
+      <MoviesList movies={movies} />
     </>
   );
 };

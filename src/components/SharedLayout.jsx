@@ -1,12 +1,11 @@
-import { Col, Row } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
+import { Col, Row, Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink, Outlet } from 'react-router-dom';
 
 function SharedLayout() {
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <header className="mb-5">
         <Navbar bg="dark" data-bs-theme="dark">
           <Container>
@@ -22,7 +21,7 @@ function SharedLayout() {
           </Container>
         </Navbar>
       </header>
-      <main>
+      <main className="flex-grow-1">
         <Container className="mb-5">
           <Outlet />
         </Container>
@@ -39,7 +38,7 @@ function SharedLayout() {
           </Row>
         </Container>
       </footer>
-    </>
+    </div>
   );
 }
 

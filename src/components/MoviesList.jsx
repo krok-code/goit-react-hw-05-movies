@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
 import { NavLink } from 'react-bootstrap-dom';
 
-const TrendingList = ({ movies }) => {
+const MoviesList = ({ movies }) => {
   return (
     <ListGroup as="ol" numbered>
       {movies.map(({ id, title }) => {
@@ -17,7 +17,7 @@ const TrendingList = ({ movies }) => {
   );
 };
 
-TrendingList.propTypes = {
+MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -26,4 +26,4 @@ TrendingList.propTypes = {
   ),
 };
 
-export default TrendingList;
+export default MoviesList;
