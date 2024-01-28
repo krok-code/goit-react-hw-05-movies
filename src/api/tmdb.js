@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const baseURL = 'https://api.themoviedb.org/3';
+const BASEURL = 'https://api.themoviedb.org/3';
 
-const config = {
+const CONFIG = {
   method: 'GET',
-  baseURL,
+  BASEURL,
   headers: {
     accept: 'application/json',
     Authorization:
@@ -12,11 +12,24 @@ const config = {
   },
 };
 
-const tmdb = axios.create(config);
+const DEFAULT_QUERY_PARAMS_FOR_SEARCH = {
+  include_adult: false,
+  language: 'en-US',
+  page: 1,
+};
+
+const tmdb = axios.create(CONFIG);
 
 export async function getTrending(timeWindow = 'day', language = 'en-US') {
   const url = `/trending/movie/${timeWindow}`;
   const params = { language };
+  const response = await tmdb.get(url, { params });
+  return response.data.results;
+}
+
+export async function getMovieBySearch(query, page) {
+  const url = `/search/movie`;
+  const params = { ...DEFAULT_QUERY_PARAMS_FOR_SEARCH, query, page };
   const response = await tmdb.get(url, { params });
   return response.data.results;
 }
