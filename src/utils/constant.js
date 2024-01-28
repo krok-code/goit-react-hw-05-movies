@@ -17,7 +17,7 @@ export const DEFAULT_QUERY_PARAMS_FOR_SEARCH = {
 };
 
 export const states = {
-  IDLE: 'IDLE',
+  NO_RESULTS: 'NO_RESULTS',
   LOADING: 'LOADING',
   LOADED: 'LOADED',
   ERROR: 'ERROR',

@@ -4,69 +4,84 @@ import MoviesList from 'components/MoviesList';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
+import { states } from 'utils/constant';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const serializeFormQuery = ref => {
-    return { query: ref.elements.query.value };
-  };
+  const [query, setQuery] = useState(searchParams.get('query') ?? '');
+  const [movies, setMovies] = useState([]);
+  const [state, setState] = useState(states.LOADED);
 
   const handleInputChange = e => {
-    setQuery(e.target.value);
+    setQuery(e.target.value.trim());
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     setMovies([]);
-    const searchQuery = query.trim();
 
-    if (!searchQuery) {
-      setQuery('');
+    if (!query) {
+      e.target.reset();
+      // setQuery('');
+      setSearchParams({});
       return;
     }
 
-    const params = serializeFormQuery(e.target);
+    setSearchParams({ query });
+    setState(states.LOADING);
 
-    setSearchParams(params);
-
-    getMovieBySearch(searchQuery)
+    getMovieBySearch(query)
       .then(data => {
-        setLoading(true);
+        console.log('data', data);
+        if (!data.length) {
+          setState(states.NO_RESULTS);
+        }
         setMovies(data);
       })
       .catch(error => {
-        setError(error);
+        setState(states.ERROR);
       })
-      .finally(() => setLoading(false));
+      .finally(() => setTimeout(() => setState(states.LOADED), 3000));
   };
 
-  if (loading) return <CenteredSpinner />;
-  if (error) return <p>Oops, something went wrong. Please try again later.</p>;
+  switch (state) {
+    case states.LOADING:
+      return <CenteredSpinner />;
 
-  return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <InputGroup className="mb-3">
-          <Form.Control
-            placeholder="Film title"
-            aria-label="Film title"
-            name="query"
-            value={query}
-            onChange={handleInputChange}
-          />
-          <Button type="submit" variant="outline-secondary" id="search-button">
-            Search
-          </Button>
-        </InputGroup>
-      </Form>
-      <MoviesList movies={movies} />
-    </>
-  );
+    case states.LOADED:
+      return (
+        <>
+          <Form onSubmit={handleSubmit}>
+            <InputGroup className="mb-3">
+              <Form.Control
+                placeholder="Film title"
+                aria-label="Film title"
+                name="query"
+                value={query}
+                onChange={handleInputChange}
+              />
+              <Button
+                type="submit"
+                variant="outline-secondary"
+                id="search-button"
+              >
+                Search
+              </Button>
+            </InputGroup>
+          </Form>
+          <MoviesList movies={movies} />
+        </>
+      );
+
+    case states.ERROR:
+      return <p>Oops, something went wrong. Please try again later.</p>;
+
+    case states.NO_RESULTS:
+      return <p>No matching movies found</p>;
+
+    default:
+      return null;
+  }
 };
 
 export default Movies;
