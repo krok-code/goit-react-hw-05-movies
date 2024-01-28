@@ -22,3 +22,9 @@ export const states = {
   LOADED: 'LOADED',
   ERROR: 'ERROR',
 };
+
+export const dateFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
