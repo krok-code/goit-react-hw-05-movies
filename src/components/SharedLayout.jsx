@@ -32,7 +32,7 @@ function SharedLayout() {
             <Col>
               <p className="text-center fst-italic">
                 created by{' '}
-                <NavLink to="https://github.com/em0nti">emonti</NavLink>
+                <NavLink to="https://github.com/krok-code">krok-code</NavLink>
               </p>
             </Col>
           </Row>

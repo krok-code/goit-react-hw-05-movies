@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
-import { NavLink } from 'react-bootstrap-dom';
+import { NavLink } from 'react-bootstrap';
 
 const MoviesList = ({ movies }) => {
   return (
