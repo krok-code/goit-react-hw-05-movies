@@ -23,27 +23,53 @@ getApiConfigDetails();
 export function generateImageUrl(path, size) {
   const baseUrl = apiConfigDetails.images.secure_base_url;
   const url = baseUrl + size + path;
-  console.log(`Image url: `, url);
   return url;
 }
 
 export async function getTrending(timeWindow = 'day', language = 'en-US') {
   const url = `/trending/movie/${timeWindow}`;
   const params = { language };
-  const response = await tmdb(url, { params });
-  return response.data.results;
+  try {
+    const response = await tmdb(url, { params });
+    return response.data.results;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export async function getMovieBySearch(query, page) {
   const url = `/search/movie`;
   const params = { ...DEFAULT_QUERY_PARAMS_FOR_SEARCH, query, page };
-  const response = await tmdb(url, { params });
-  return response.data.results;
+  try {
+    const response = await tmdb(url, { params });
+    return response.data.results;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export async function getMovieDetailsById(movieId, language = 'en-US') {
   const url = `/movie/${movieId}`;
   const params = { language };
-  const response = await tmdb.get(url, { params });
-  return response.data;
+  try {
+    const response = await tmdb(url, { params });
+    return response.data;
+  } catch (error) {
+    console.error(`Error loading movie details: ${error.message}`);
+    throw error;
+  }
+}
+
+export async function getCast(movieId, language = 'en-US') {
+  const url = `/movie/${movieId}/credits`;
+  const params = { language };
+  try {
+    const response = await tmdb(url, { params });
+    return response.data.cast;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
