@@ -9,15 +9,16 @@ let apiConfigDetails = null;
 
 async function getApiConfigDetails() {
   const url = '/configuration';
-  const response = await tmdb(url);
-  return response.data;
+  try {
+    const response = await tmdb(url);
+    apiConfigDetails = response.data;
+    return response.data;
+  } catch (error) {
+    console.error(`Error in getting of API configuration:${error}`);
+  }
 }
 
-getApiConfigDetails()
-  .then(config => (apiConfigDetails = config))
-  .catch(error =>
-    console.error(`Error in getting of API configuration:${error}`)
-  );
+getApiConfigDetails();
 
 export function generateImageUrl(path, size) {
   const baseUrl = apiConfigDetails.images.secure_base_url;
