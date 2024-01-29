@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getTrending } from 'api/tmdb';
 import MoviesList from 'components/MoviesList';
 import CenteredSpinner from 'components/CenteredSpinner';
-import { states } from 'utils/constant';
+import { states } from 'utils/constants';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -26,7 +26,7 @@ const Home = () => {
     case states.LOADED:
       return (
         <>
-          <h1 className="nb-3">Trending today</h1>
+          <h1 className="mb-3">Trending today</h1>
           <MoviesList movies={movies} />
         </>
       );

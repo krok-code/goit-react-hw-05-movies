@@ -4,13 +4,13 @@ import MoviesList from 'components/MoviesList';
 import SearchForm from 'components/SearchForm';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { states } from 'utils/constant';
+import { states } from 'utils/constants';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
   const [state, setState] = useState(states.LOADED);
-  const query = setSearchParams.get('query');
+  const query = searchParams.get('query');
 
   useEffect(() => {
     if (!query) {
@@ -29,7 +29,6 @@ const Movies = () => {
         } else {
           setState(states.NO_RESULTS);
         }
-        setMovies(data);
       })
       .catch(error => {
         setState(states.ERROR);

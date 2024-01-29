@@ -1,8 +1,8 @@
-const BASEURL = 'https://api.themoviedb.org/3';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const INIT_FETCH_CONFIG = {
   method: 'GET',
-  baseURL: BASEURL,
+  baseURL: BASE_URL,
   headers: {
     accept: 'application/json',
     Authorization:

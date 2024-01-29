@@ -4,7 +4,7 @@ import CenteredSpinner from 'components/CenteredSpinner';
 import MovieCard from 'components/MovieCard';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { states } from 'utils/constant';
+import { states } from 'utils/constants';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -17,7 +17,7 @@ const MovieDetails = () => {
     getMovieDetailsById(movieId)
       .then(movieDetails => {
         setMovieDetails(movieDetails);
-        setState(states.LOADING);
+        setState(states.LOADED);
       })
       .catch(error => {
         setState(states.ERROR);
