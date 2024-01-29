@@ -4,9 +4,9 @@ import { Card, Col, Image, Nav, Row } from 'react-bootstrap';
 import { NavLink, Outlet } from 'react-router-dom';
 import { generateImageUrl } from 'api/tmdb';
 
-const MovieCard = ({ poster_path, title, vote_avarage, overview, genres }) => {
+const MovieCard = ({ poster_path, title, vote_average, overview, genres }) => {
   const movieImgUrl = generateImageUrl(poster_path, 'w500');
-  const userScore = Math.round(vote_avarage * 10);
+  const userScore = Math.round(vote_average * 10);
 
   return (
     <Card className="mb-3">
@@ -69,7 +69,7 @@ const MovieCard = ({ poster_path, title, vote_avarage, overview, genres }) => {
 MovieCard.propTypes = {
   poster_path: PropTypes.string,
   title: PropTypes.string,
-  vote_avarage: PropTypes.number,
+  vote_average: PropTypes.number,
   overview: PropTypes.string,
   genres: PropTypes.arrayOf(
     PropTypes.shape({
