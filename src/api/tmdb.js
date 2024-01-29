@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   INIT_FETCH_CONFIG,
   DEFAULT_QUERY_PARAMS_FOR_SEARCH,
-} from 'utils/constant';
+} from 'utils/constants';
 
 const tmdb = axios.create(INIT_FETCH_CONFIG);
 let apiConfigDetails = null;
