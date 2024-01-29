@@ -10,11 +10,12 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
   const [state, setState] = useState(states.LOADED);
-  let query = setSearchParams.get('query');
-  
+  const query = setSearchParams.get('query');
+
   useEffect(() => {
     if (!query) {
       setMovies([]);
+      setState(states.LOADED);
       return;
     }
 
@@ -22,49 +23,51 @@ const Movies = () => {
 
     getMovieBySearch(query)
       .then(data => {
-        if (!data.length) {
+        if (data.length) {
+          setMovies(data);
+          setState(states.LOADED);
+        } else {
           setState(states.NO_RESULTS);
         }
         setMovies(data);
       })
       .catch(error => {
         setState(states.ERROR);
-      })
-      .finally(() => setTimeout(() => setState(states.LOADED), 3000));
+      });
   }, [query]);
 
-  const handleSearchFormSubmit = searchQuery ={
+  const handleSearchFormSubmit = searchQuery => {
     if (!searchQuery) {
       setSearchParams({});
       return;
     }
     if (query !== searchQuery) {
       setMovies([]);
-      query = searchQuery;
       setSearchParams({ query: searchQuery });
     }
   };
 
-switch (state) {
-  case states.LOADING:
-    return <CenteredSpinner />;
+  switch (state) {
+    case states.LOADING:
+      return <CenteredSpinner />;
 
-  case states.LOADED:
-    return (
-      <>
-        <SearchForm formSubmit={handleSearchFormSubmit} query={query??''} />
-        <MoviesList movies={movies} />
-      </>
-    );
+    case states.LOADED:
+      return (
+        <>
+          <SearchForm formSubmit={handleSearchFormSubmit} query={query ?? ''} />
+          <MoviesList movies={movies} />
+        </>
+      );
 
-  case states.ERROR:
-    return <p>Oops, something went wrong. Please try again later.</p>;
+    case states.ERROR:
+      return <p>Oops, something went wrong. Please try again later.</p>;
 
-  case states.NO_RESULTS:
-    return <p>No matching movies found</p>;
+    case states.NO_RESULTS:
+      return <p>No matching movies found</p>;
 
-  default:
-    return null;
-}
+    default:
+      return null;
+  }
+};
 
 export default Movies;
