@@ -5,6 +5,7 @@ const CenteredSpinner = () => (
   <Modal
     show={true}
     centered
+    fullscreen
     contentClassName="bg-transparent shadow-none"
     backdropClassName="bg-dark"
   >
@@ -13,7 +14,7 @@ const CenteredSpinner = () => (
       style={{ minHeight: '100vh', backdropFilter: 'blur(2px)' }}
     >
       <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
+        {/* <span className="sr-only">Loading...</span> */}
       </Spinner>
     </Modal.Body>
   </Modal>
