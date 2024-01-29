@@ -22,7 +22,6 @@ const Movies = () => {
 
     if (!query) {
       e.target.reset();
-      // setQuery('');
       setSearchParams({});
       return;
     }
@@ -32,7 +31,6 @@ const Movies = () => {
 
     getMovieBySearch(query)
       .then(data => {
-        console.log('data', data);
         if (!data.length) {
           setState(states.NO_RESULTS);
         }

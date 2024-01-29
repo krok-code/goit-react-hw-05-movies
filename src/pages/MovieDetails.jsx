@@ -3,13 +3,15 @@ import BackLink from 'components/BackLink';
 import CenteredSpinner from 'components/CenteredSpinner';
 import MovieCard from 'components/MovieCard';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { states } from 'utils/constant';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [state, setState] = useState(states.LOADING);
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/movies';
 
   useEffect(() => {
     getMovieDetailsById(movieId)
@@ -29,7 +31,7 @@ const MovieDetails = () => {
     case states.LOADED:
       return (
         <>
-          <BackLink />
+          <BackLink from={backLinkHref} />
           <MovieCard {...movieDetails} />
         </>
       );

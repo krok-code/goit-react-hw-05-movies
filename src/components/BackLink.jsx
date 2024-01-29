@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const BackLink = () => {
+const BackLink = ({ from }) => {
   return (
-    <Link to="/">
+    <Link to="{from}">
       <div className="py-3">
         {' '}
         <svg
