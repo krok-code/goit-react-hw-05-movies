@@ -1,22 +1,20 @@
 import { getMovieBySearch } from 'api/tmdb';
 import CenteredSpinner from 'components/CenteredSpinner';
 import MoviesList from 'components/MoviesList';
+import SearchForm from 'components/SearchForm';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { states } from 'utils/constant';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get('query') ?? '');
-  const [inputValue, setInputValue] = useState(query);
   const [movies, setMovies] = useState([]);
   const [state, setState] = useState(states.LOADED);
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/movies' && !location.search && query !== '') {
-      setInputValue('');
+    if (location.pathname === '/movies' && !location.search) {
       setQuery('');
       setMovies([]);
       setState(states.LOADED);
@@ -24,15 +22,15 @@ const Movies = () => {
     if (location.pathname === '/movies' && location.search) {
       setQuery(() => searchParams.get('query') ?? '');
     }
-  }, [location.pathname, location.search, query, searchParams]);
+  }, [location.pathname, location.search, searchParams]);
 
   useEffect(() => {
     if (!query) {
       setMovies([]);
       return;
     }
+
     setState(states.LOADING);
-    setMovies([]);
 
     getMovieBySearch(query)
       .then(data => {
@@ -47,23 +45,17 @@ const Movies = () => {
       .finally(() => setTimeout(() => setState(states.LOADED), 3000));
   }, [query]);
 
-  const handleInputChange = e => {
-    setInputValue(e.target.value);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const searchQuery = inputValue.trim();
+  const handleSearchFormSubmit = searchQuery ={
     if (!searchQuery) {
-      e.target.reset();
       setSearchParams({});
       return;
     }
-    setQuery(searchQuery);
-
-    setSearchParams({ query: searchQuery });
+    if (query !== searchQuery) {
+      setMovies([]);
+      setQuery(searchQuery);
+      setSearchParams({ query: searchQuery });
+    }
   };
-};
 
 switch (state) {
   case states.LOADING:
@@ -72,24 +64,7 @@ switch (state) {
   case states.LOADED:
     return (
       <>
-        <Form onSubmit={handleSubmit}>
-          <InputGroup className="mb-3">
-            <Form.Control
-              placeholder="Film title"
-              aria-label="Film title"
-              name="query"
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-            <Button
-              type="submit"
-              variant="outline-secondary"
-              id="search-button"
-            >
-              Search
-            </Button>
-          </InputGroup>
-        </Form>
+        <SearchForm formSubmit={handleSearchFormSubmit} query={query} />
         <MoviesList movies={movies} />
       </>
     );
