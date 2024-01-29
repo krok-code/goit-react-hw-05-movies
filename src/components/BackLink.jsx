@@ -4,7 +4,7 @@ import { ReactComponent as ArrowLeft } from '../images/left-arrow.svg';
 
 const BackLink = ({ from }) => {
   return (
-    <Link to="{from}">
+    <Link to={from}>
       <div className="py-3">
         {' '}
         <ArrowLeft />

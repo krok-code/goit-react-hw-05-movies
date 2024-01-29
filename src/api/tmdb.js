@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { func } from 'prop-types';
 import {
   INIT_FETCH_CONFIG,
   DEFAULT_QUERY_PARAMS_FOR_SEARCH,
