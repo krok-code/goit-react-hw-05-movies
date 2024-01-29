@@ -3,27 +3,15 @@ import CenteredSpinner from 'components/CenteredSpinner';
 import MoviesList from 'components/MoviesList';
 import SearchForm from 'components/SearchForm';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { states } from 'utils/constant';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(() => searchParams.get('query') ?? '');
   const [movies, setMovies] = useState([]);
   const [state, setState] = useState(states.LOADED);
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.pathname === '/movies' && !location.search) {
-      setQuery('');
-      setMovies([]);
-      setState(states.LOADED);
-    }
-    if (location.pathname === '/movies' && location.search) {
-      setQuery(() => searchParams.get('query') ?? '');
-    }
-  }, [location.pathname, location.search, searchParams]);
-
+  let query = setSearchParams.get('query');
+  
   useEffect(() => {
     if (!query) {
       setMovies([]);
@@ -52,7 +40,7 @@ const Movies = () => {
     }
     if (query !== searchQuery) {
       setMovies([]);
-      setQuery(searchQuery);
+      query = searchQuery;
       setSearchParams({ query: searchQuery });
     }
   };
@@ -64,7 +52,7 @@ switch (state) {
   case states.LOADED:
     return (
       <>
-        <SearchForm formSubmit={handleSearchFormSubmit} query={query} />
+        <SearchForm formSubmit={handleSearchFormSubmit} query={query??''} />
         <MoviesList movies={movies} />
       </>
     );
