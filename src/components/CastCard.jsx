@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { generateImageUrl } from 'api/tmdb';
-import NotFoundImg from '../images/not-found-img.jpg';
+import notFoundImg from '../images/not-found-img.jpg';
 
 const CastCard = ({ name, profile_path, character }) => {
   const profileUrl = profile_path
     ? generateImageUrl(profile_path, 'h632')
-    : NotFoundImg;
+    : notFoundImg;
 
   return (
     <Card>
