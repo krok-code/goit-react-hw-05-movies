@@ -3,7 +3,7 @@ import CenteredSpinner from 'components/CenteredSpinner';
 import MoviesList from 'components/MoviesList';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { states } from 'utils/constant';
 
 const Movies = () => {
@@ -12,6 +12,19 @@ const Movies = () => {
   const [inputValue, setInputValue] = useState(query);
   const [movies, setMovies] = useState([]);
   const [state, setState] = useState(states.LOADED);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/movies' && !location.search && query !== '') {
+      setInputValue('');
+      setQuery('');
+      setMovies([]);
+      setState(states.LOADED);
+    }
+    if (location.pathname === '/movies' && location.search) {
+      setQuery(() => searchParams.get('query') ?? '');
+    }
+  }, [location.pathname, location.search, query, searchParams]);
 
   useEffect(() => {
     if (!query) {
