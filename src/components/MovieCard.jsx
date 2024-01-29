@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Col, Image, Nav, Row } from 'react-bootstrap';
 import { NavLink, Outlet } from 'react-router-dom';
@@ -57,8 +57,9 @@ const MovieCard = ({ poster_path, title, vote_avarage, overview, genres }) => {
       </Row>
       <Row className="g-0">
         <Col className="p-3">
-          {' '}
-          <Outlet />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
         </Col>
       </Row>
     </Card>

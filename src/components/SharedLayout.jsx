@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -23,7 +24,9 @@ function SharedLayout() {
       </header>
       <main className="flex-grow-1">
         <Container className="mb-5">
-          <Outlet />
+          <Suspense fallback={<div>loading page...</div>}>
+            <Outlet />
+          </Suspense>
         </Container>
       </main>
       <footer>
