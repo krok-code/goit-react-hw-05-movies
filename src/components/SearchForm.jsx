@@ -4,7 +4,6 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 
 const SearchForm = ({ formSubmit, query }) => {
   const [inputValue, setInputValue] = useState(query);
-
   const handleInputChange = e => {
     setInputValue(e.target.value);
   };

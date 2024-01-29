@@ -6,9 +6,9 @@ import ReviewsItem from './ReviewsItem';
 const ReviewsList = ({ reviews }) => {
   return (
     <Row xs={1} className="g-4">
-      {reviews.map(({ id, ...reviewsDetails }) => (
+      {reviews.map(({ id, ...reviewDetails }) => (
         <Col key={id}>
-          <ReviewsItem {...reviewsDetails} />
+          <ReviewsItem {...reviewDetails} />
         </Col>
       ))}
     </Row>

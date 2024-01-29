@@ -24,7 +24,7 @@ function SharedLayout() {
       </header>
       <main className="flex-grow-1">
         <Container className="mb-5">
-          <Suspense fallback={<div>loading page...</div>}>
+          <Suspense fallback={<div>Loading page...</div>}>
             <Outlet />
           </Suspense>
         </Container>
