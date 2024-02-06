@@ -4,6 +4,10 @@ import { Col, Row } from 'react-bootstrap';
 import ReviewsItem from './ReviewsItem';
 
 const ReviewsList = ({ reviews }) => {
+  if (reviews.length === 0) {
+    return <div>No reviews available</div>;
+  }
+
   return (
     <Row xs={1} className="g-4">
       {reviews.map(({ id, ...reviewDetails }) => (

@@ -4,8 +4,12 @@ import { Card, Col, Image, Nav, Row } from 'react-bootstrap';
 import { NavLink, Outlet } from 'react-router-dom';
 import { generateImageUrl } from 'api/tmdb';
 
+import defaulImage from '../images/not-found-img.jpg';
+
 const MovieCard = ({ poster_path, title, vote_average, overview, genres }) => {
-  const movieImgUrl = generateImageUrl(poster_path, 'w500');
+  const movieImgUrl = poster_path
+    ? generateImageUrl(poster_path, 'w500')
+    : defaulImage;
   const userScore = Math.round(vote_average * 10);
 
   return (
